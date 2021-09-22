@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { StyleSheet, View, ViewStyle, StyleProp } from 'react-native';
+import { View, ViewStyle, StyleProp } from 'react-native';
 import type { AutoUpdateType } from './AutoUpdate'
 import UpdateDialog, { UpdateDialogRef } from './UpdateDialog'
 

@@ -1,6 +1,6 @@
-import React, { FC, PropsWithRef, Component, MutableRefObject } from 'react';
-import { StyleSheet, View, } from 'react-native';
-import { Button, Paragraph, Dialog, Portal, Provider, useTheme, ProgressBar, Text } from 'react-native-paper';
+import React from 'react';
+import { View, } from 'react-native';
+import { Button, Paragraph, Dialog, Portal, useTheme, ProgressBar, Text } from 'react-native-paper';
 import DeviceInfo from 'react-native-device-info';
 import type UpdateUtil from './UpdateUtil'
 import type { DownloadApkOptions } from './UpdateUtil'
@@ -90,7 +90,5 @@ const UpdateDialog = React.forwardRef<UpdateDialogRef, UpdateDialogType>(({ upda
         </Portal>
     )
 })
-
-const styles = StyleSheet.create({})
 
 export default UpdateDialog

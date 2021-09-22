@@ -1,6 +1,6 @@
 {
-  "name": "rn-update",
-  "version": "0.1.0",
+  "name": "@zero-d/rn-update",
+  "version": "0.0.1",
   "description": "update",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",

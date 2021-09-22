@@ -5,5 +5,5 @@ update
 ## Installation
 
 ```sh
-npm install rn-update
+npm install @zero-d/rn-update
 ```

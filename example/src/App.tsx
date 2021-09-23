@@ -17,7 +17,7 @@ const RnUpdateClient = new UpdateUtil({
   appAddress: 'http://oss.huijiaoketang.com/s/app_99.apk',
   directoryPath: 'aihui222',
   downloadApkName: 'huijiaoapp.apk',
-  checkUpdateMethod: async () => {
+  checkUpdateMethod: async (instance) => {
     try {
       let targetVersion = await getVersion();
       let currentVersion = DeviceInfo.getBuildNumber()
@@ -25,6 +25,9 @@ const RnUpdateClient = new UpdateUtil({
       if (!needUpdate) {
         ToastAndroid.showWithGravity('不需要更新', ToastAndroid.LONG, ToastAndroid.BOTTOM);
       }
+      // instance.setConfig({
+      //   appAddress: `http://oss.huijiaoketang.com/s/app_${targetVersion}.apk`
+      // })
       return needUpdate;
     } catch (error) {
       return false;

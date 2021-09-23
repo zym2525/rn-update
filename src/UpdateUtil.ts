@@ -24,7 +24,7 @@ export type UpdateConfig = {
     /**
      * @description 检测是否需要更新的方法 返回true则需要更新
      */
-    checkUpdateMethod: () => Promise<boolean>
+    checkUpdateMethod: (instance: UpdateUtil) => Promise<boolean>
 }
 
 export type DownloadApkOptions = Partial<UpdateConfig> & {
@@ -48,7 +48,7 @@ class UpdateUtil {
     }
 
     checkUpdate() {
-        return this.config.checkUpdateMethod();
+        return this.config.checkUpdateMethod(this);
     }
 
     async downloadApk({ onProgress, appAddress }: DownloadApkOptions) {
@@ -110,6 +110,13 @@ class UpdateUtil {
         };
 
         return await RNFS.mkdir(filepath, options);
+    }
+
+    setConfig(config: Partial<UpdateConfig>) {
+        this.config = {
+            ...this.config,
+            ...config
+        }
     }
 
 }

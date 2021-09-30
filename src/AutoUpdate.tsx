@@ -13,7 +13,7 @@ export type AutoUpdateType = {
     /**
      * 检测结束
      */
-    onFinishCheck?: () => any
+    onFinishCheck?: (needUpdate: boolean) => any
 } & DownloadApkOptions
 
 const AutoUpdate = ({ updateClient, onStartCheck, onFinishCheck, ...rest }: AutoUpdateType) => {
@@ -28,7 +28,7 @@ const AutoUpdate = ({ updateClient, onStartCheck, onFinishCheck, ...rest }: Auto
         try {
             onStartCheck?.();
             let needUpdate = await updateClient.checkUpdate()
-            onFinishCheck?.();
+            onFinishCheck?.(needUpdate);
             if (needUpdate) {
                 updateDialogRef.current?.showDialog();
             }

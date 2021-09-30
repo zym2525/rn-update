@@ -2,13 +2,14 @@ import React, { FC } from 'react'
 import { View, ViewStyle, StyleProp } from 'react-native';
 import type { AutoUpdateType } from './AutoUpdate'
 import UpdateDialog, { UpdateDialogRef } from './UpdateDialog'
+import Spinner from './Spinner'
 
 export type ManualUpdateType = {
     style?: StyleProp<ViewStyle>
     /**
      * @description checkUpdate为更新函数 action不传则会自动调用检测更新
      */
-    action?: (checkUpdate: () => any) => React.ReactNode
+    action?: (checkUpdate: (showTip?: boolean) => any) => React.ReactNode
     /**
      * 是否需要自动调用检测更新
      */
@@ -18,17 +19,23 @@ export type ManualUpdateType = {
 const ManualUpdate: FC<ManualUpdateType> = ({ action, updateClient, style, auto = false, onStartCheck, onFinishCheck, ...rest }) => {
     const updateDialogRef = React.useRef<UpdateDialogRef>(null);
 
+    const [tipVisible, setTipVisible] = React.useState(false);
+
+    const isAuto = auto || !action;
+
     React.useEffect(() => {
-        if (auto || !action) {
-            checkUpdate();
+        if (isAuto) {
+            checkUpdate(false);
         }
     }, [])
 
-    const checkUpdate = React.useCallback(async () => {
+    const checkUpdate = React.useCallback(async (showTip = true) => {
         try {
             onStartCheck?.();
-            let needUpdate = await updateClient.checkUpdate()
-            onFinishCheck?.();
+            if (showTip) setTipVisible(true);
+            let needUpdate = await updateClient.checkUpdate();
+            if (showTip) setTipVisible(false);
+            onFinishCheck?.(needUpdate);
             if (needUpdate) {
                 updateDialogRef.current?.showDialog();
             }
@@ -43,6 +50,7 @@ const ManualUpdate: FC<ManualUpdateType> = ({ action, updateClient, style, auto 
                 action && action(checkUpdate)
             }
             <UpdateDialog ref={updateDialogRef} updateClient={updateClient} {...rest} />
+            <Spinner visible={tipVisible} />
         </View>
 
     )

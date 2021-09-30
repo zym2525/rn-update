@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Linking, ToastAndroid, NativeModules } from 'react-native';
-import { UpdateUtil, AutoUpdate, UpdateDialog, UpdateDialogRef, ManualUpdate } from 'rn-update';
+import { UpdateUtil, AutoUpdate, UpdateDialog, UpdateDialogRef, ManualUpdate } from '@zero-d/rn-update';
 import { Button, Paragraph, Dialog, Portal, Provider, useTheme, ProgressBar, Text } from 'react-native-paper';
 import DeviceInfo from 'react-native-device-info';
 
